@@ -1,0 +1,65 @@
+<html>
+<head>
+<style type="text/css">
+label {
+	font-family: monospace;
+}
+</style>
+<script type="text/javascript">
+function peek(){
+	var type=document.getElementById('text1').type;
+	if (type == "password") {
+		document.getElementById('text1').type = 'text';
+		document.getElementById('peekButton').innerText = "Hide";
+	} else {
+		document.getElementById('text1').type = 'password'
+		document.getElementById('peekButton').innerText = "Peek";
+	}
+}
+
+function resetCounters(){
+		document.getElementById("gr").innerText=0;
+		document.getElementById("br").innerText=0;
+}
+
+function Validate() {
+	var t1=document.getElementById("text1").value
+	var t2=document.getElementById("text2").value
+	var gv=+document.getElementById("gr").innerText
+	var bv=+document.getElementById("br").innerText
+	//alert ( "T1: " + t1 + ", T2: " + t2)
+	if ( t1 == t2 ) {
+		//alert("Same!");
+		document.getElementById("text1").value=t1;
+		document.getElementById("text2").value="";
+		gv = gv + 1;
+		document.getElementById("gr").innerText=gv;
+	} else {
+		//alert("NotSame!")
+		document.getElementById("text1").value=t1;
+		document.getElementById("text2").value="";
+		bv = bv + 1;
+		document.getElementById("br").innerText=bv;
+	}
+	if (gv == 12 && bv == 0) {
+		alert("Woohoo! That's 12 in a row.\nWhy not try changing the main password?")
+	} else if (gv == 12 && bv > 0) {
+		alert("Good Job! only " + bv + " mistakes.\nWhy not reset and try again later?")
+	}
+	return false;
+}
+</script>
+</head>
+<body>
+<h1>Dans Handy Strong Password Practice Toy</h1>
+<p>You know it is important to make long, strong password. But memorizing it is a nusiance. That's why you need this tool. Just paste in your long strong password and try to memorize it by typing in the Tword field. When you get 12 in a row with no errors, you might have it down. You can peek at the long strong password any time for a hint.</p>
+	<form onSubmit='return Validate()'>
+<label for="text1">Pword: </label><input type="password" id="text1" size="40" /><button type="button" id="peekButton" onClick="peek()">Peek</button><br>
+<label for="text2">Tword:  </label><input type="password" id="text2"  size="40" /><button type="submit">Check</button>
+	</form>
+	<pre>  Correct: <span id="gr">0<span></pre>
+	<pre>Incorrect: <span id="br">0<span></pre>
+	<button type="button" id="resetButton" onClick="resetCounters()">Reset</button>
+</body>
+</html>
+
